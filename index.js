@@ -39,10 +39,24 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
+}
+Person.prototype.eat = function(food){
+  if (this.stomach.length < 10){
+    this.stomach.push(food);
+  }
+}
+  
+Person.prototype.poop = function(){
+  this.stomach = [];
 }
 
+Person.prototype.toString = function () {
+  return `${this.name}, ${this.age}`;
+}
 /*
   TASK 2
     - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
@@ -57,9 +71,28 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
 }
+
+Car.prototype.fill = function (gallons) {
+  this.tank += gallons;
+}
+
+Car.prototype.drive = function(distance){  
+  if (this.tank >= distance / this.milesPerGallon){
+    this.tank -= distance / this.milesPerGallon;
+    this.odometer += distance;
+  }else {
+    this.odometer += (this.tank * this.milesPerGallon);
+    this.tank = 0;
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
+}
+
 
 /*
   TASK 3
@@ -68,18 +101,23 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age); // binding this to Person
+  this.favoriteToy = favoriteToy; // this will be a special attribute to Baby
+}
 
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`;
 }
 
 /* 
-  TASK 4
-
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. The first principle of this refers to the global or console binding of this. This binding occurs by default(unless in strict mode) when this is given no other context.
+  2. A second principle of this is implicit binding. Implicit binding occures when a method is called on an object using dot notation. The object to the left of the dot is implicitly bound to this in the invoked method.
+  3. A third principle of this is new binding. This can be defined in context of an object constructor function using the keyword new. The constructor function creates and returns a new object which sets the context for this in its created attributes and methods.
+  4. A fourth principle of this is explicit binding. This can be defined explicitly using .call(), .apply(), or .bind(). These methods are called on a function. .call() and .apply() bind this and any other arguments to and invoke the function, either by passing in one by one using .call(), or as an array using .apply() to the function they are called on. .bind() allows the function to be bound to the this object and its needed parameters and stored in a new function name to be invoked later. 
 */
 
 
