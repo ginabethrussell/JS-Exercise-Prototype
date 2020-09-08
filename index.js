@@ -113,13 +113,11 @@ Baby.prototype.play = function(){
 }
 
 /* 
-  TASK 4
-
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. The first principle of this refers to the global or console binding of this. This binding occurs by default(unless in strict mode) when this is given no other context.
+  2. A second principle of this is implicit binding. Implicit binding occures when a method is called on an object using dot notation. The object to the left of the dot is implicitly bound to this in the invoked method.
+  3. A third principle of this is new binding. This can be defined in context of an object constructor function using the keyword new. The constructor function creates and returns a new object which sets the context for this in its created attributes and methods.
+  4. A fourth principle of this is explicit binding. This can be defined explicitly using .call(), .apply(), or .bind(). These methods are called on a function. .call() and .apply() bind this and any other arguments to and invoke the function, either by passing in one by one using .call(), or as an array using .apply() to the function they are called on. .bind() allows the function to be bound to the this object and its needed parameters and stored in a new function name to be invoked later. 
 */
 
 
